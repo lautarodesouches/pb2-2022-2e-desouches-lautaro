@@ -1,10 +1,9 @@
 package ar.edu.unlam.pb2;
 
-public class UsuarioAdminisrador extends Usuario{
+public class UsuarioAdminisrador extends UsuarioConPoderes implements Activable{
 
 	public UsuarioAdminisrador(Integer dni, String nombre) {
 		super(dni, nombre);
-		// TODO Auto-generated constructor stub
 	}
 
 	public Boolean agregarAlarma(Central central, Alarma alarma) {
@@ -14,21 +13,6 @@ public class UsuarioAdminisrador extends Usuario{
 	
 	public Boolean agregarUsuario(Central central, Usuario usuario) {
 		central.registrarUsuario(usuario);
-		return true;
-	}
-	
-	public Boolean agregarUsuarioAAlarma(Central central, Integer dniUsuarioAAgregar, Integer idAlarma, String codigoConfiguracion) throws Exception {
-	
-		Usuario usuarioAAgregar = central.buscarUsuarioPorDni(dniUsuarioAAgregar);
-		Alarma alarma = central.buscarAlarmaPorId(idAlarma);
-		
-		if(alarma.getCodigoConfiguracion().equals(codigoConfiguracion)) {				
-			alarma.agregarUsuario(usuarioAAgregar);
-		} 
-		else {				
-			throw new CodigoAlarmaIncorrectoException();
-		}
-		
 		return true;
 	}
 	
@@ -45,6 +29,21 @@ public class UsuarioAdminisrador extends Usuario{
 				//throw new Exception("No se pudo activar la alarma. El sensor " + sensor.getId() + " se encuentra desactivado");
 				return false;
 			}
+		}
+		
+		return true;
+		
+	}
+	
+	public Boolean desactivarAlarma(Alarma alarma, String codigoDeActivacionYDesactivacion) throws Exception {
+		
+		if(!alarma.getCodigoDeActivacionYDesactivacion().equals(codigoDeActivacionYDesactivacion)) {
+			return false;
+			//throw new Exception("Codigo configuracion incorrecto");
+		} 
+		
+		for (Sensor sensor: alarma.getListaSensores()) {
+			sensor.setEstado(false);
 		}
 		
 		return true;

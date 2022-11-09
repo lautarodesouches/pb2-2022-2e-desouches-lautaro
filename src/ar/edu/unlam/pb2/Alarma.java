@@ -12,6 +12,7 @@ public class Alarma {
 	private List<Usuario> listaUsuarios;
 	private List<Accion> listaAccionesRealizadas;
 	private List<Sensor> listaSensores;
+	private Boolean activa;
 	
 	public Alarma(Integer idDeAlarma, String codigoDeActivacionYDesactivacion, String codigoConfiguracion,
 			String nombre) {
@@ -77,14 +78,40 @@ public class Alarma {
 	}
 
 	public void agregarSensor(Sensor sensorAAgregar) throws SensorDuplicadoException {
+		
 		for (Sensor sensor : listaSensores) {
 			if(sensor.equals(sensorAAgregar)) throw new SensorDuplicadoException();
 		}
+		
 		listaSensores.add(sensorAAgregar);
+		
 	}
 	
 	public void registrarAccion(Accion accion) {
 		listaAccionesRealizadas.add(accion);
+	}
+
+	public Sensor buscarSensorPorId(Integer idSensor) throws Exception {
+		
+		for (Sensor sensor : listaSensores) {
+			if(sensor.getId().equals(idSensor)) return sensor;
+		}
+		
+		throw new Exception("Sensor no encontrado");
+		
+	}
+
+	public Boolean getActiva() {
+		return activa;
+	}
+
+	public void setActiva(Boolean activa) {
+		this.activa = activa;
+	}
+
+	public void desactivarSensores() {
+		
+		this.activa = false;
 	}
 	
 }

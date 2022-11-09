@@ -4,7 +4,26 @@ public class UsuarioActivador extends Usuario implements Activable {
 
 	public UsuarioActivador(Integer dni, String nombre) {
 		super(dni, nombre);
-		// TODO Auto-generated constructor stub
+	}
+	
+	public void activarAlarma(Alarma alarma) {
+		alarma.setActiva(true);
 	}
 
+	public void desactivarAlarma(Alarma alarma) {
+		alarma.desactivarSensores();
+		alarma.setActiva(false);
+	}
+
+	@Override
+	public Boolean activarAlarma(Alarma alarma, String codigoDeActivacionYDesactivacion) throws Exception {
+		
+		return null;
+	}
+
+	@Override
+	public Boolean desactivarAlarma(Alarma alarma, String codigoDeActivacionYDesactivacion) throws Exception {
+		
+		return null;
+	}
 }

@@ -105,10 +105,5 @@ public class TestCentralAlarma {
 		}
 		
 	}
-	
-	@Test
-	public void queParaUnaAlarmaDeterminadaSePuedaObtenerUnaColeccionOrdenadaDeAccionesDeTipoConfiguracionOrdenadasPorIdDeAccion() {
-		
-	}
 
 }
