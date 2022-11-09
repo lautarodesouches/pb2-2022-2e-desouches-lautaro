@@ -32,4 +32,23 @@ public class UsuarioAdminisrador extends Usuario{
 		return true;
 	}
 	
+	public Boolean activarAlarma(Alarma alarma, String codigoDeActivacionYDesactivacion) throws Exception {
+		
+		if(!alarma.getCodigoDeActivacionYDesactivacion().equals(codigoDeActivacionYDesactivacion)) {
+			return false;
+			//throw new Exception("Codigo configuracion incorrecto");
+		} 
+		
+		for (Sensor sensor: alarma.getListaSensores()) {
+			
+			if(!sensor.getEstado()) {
+				//throw new Exception("No se pudo activar la alarma. El sensor " + sensor.getId() + " se encuentra desactivado");
+				return false;
+			}
+		}
+		
+		return true;
+		
+	}
+	
 }

@@ -72,8 +72,8 @@ public class TestCentralAlarma {
 		
 		admin.agregarUsuario(central, usuarioConfig);
 		admin.agregarAlarma(central, alarma);
-		
 		admin.agregarUsuarioAAlarma(central,7542, 1, "4321");
+		
 		usuarioConfig.agregarSensorAAlarma(central, 1, "4321", sensor, "1234");
 		usuarioConfig.agregarSensorAAlarma(central, 1, "4321", sensorDuplicado, "1234");
 		
@@ -81,6 +81,28 @@ public class TestCentralAlarma {
 	
 	@Test
 	public void queNoSePuedaActivarUnaAlarmaSiHayAlMenosUnSensorDesactivado() {
+		
+		Central central = new Central();
+		Alarma alarma = new Alarma(1,"1234","4321","Alarma-1");
+		UsuarioAdminisrador admin = new UsuarioAdminisrador(2465, "Pedro");
+		UsuarioConfigurador usuarioConfig = new UsuarioConfigurador(7542, "Juan");
+		Sensor sensor1 = new Sensor(1, true);
+		Sensor sensor2 = new Sensor(2, true);
+		
+		admin.agregarUsuario(central, usuarioConfig);
+		admin.agregarAlarma(central, alarma);
+		
+		try {
+			
+			admin.agregarUsuarioAAlarma(central,7542, 1, "4321");
+			usuarioConfig.agregarSensorAAlarma(central, 1, "4321", sensor1, "1234");
+			usuarioConfig.agregarSensorAAlarma(central, 1, "4321", sensor2, "1234");
+			
+			assertTrue(admin.activarAlarma(alarma, "1234"));
+			
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 		
 	}
 	

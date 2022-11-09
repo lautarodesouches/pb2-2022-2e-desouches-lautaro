@@ -78,9 +78,13 @@ public class Alarma {
 
 	public void agregarSensor(Sensor sensorAAgregar) throws SensorDuplicadoException {
 		for (Sensor sensor : listaSensores) {
-			if(sensor.equals(sensor)) throw new SensorDuplicadoException();
+			if(sensor.equals(sensorAAgregar)) throw new SensorDuplicadoException();
 		}
 		listaSensores.add(sensorAAgregar);
+	}
+	
+	public void registrarAccion(Accion accion) {
+		listaAccionesRealizadas.add(accion);
 	}
 	
 }
