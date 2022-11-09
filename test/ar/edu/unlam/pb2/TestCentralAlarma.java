@@ -11,7 +11,7 @@ public class TestCentralAlarma {
 	public void queSePuedaRegistrarUnaAlarmaEnLaCentral() {
 		
 		Central central = new Central();
-		Alarma alarma = new Alarma(1,1234,4321,"Alarma-1");
+		Alarma alarma = new Alarma(1,"1234","4321","Alarma-1");
 		UsuarioAdminisrador admin = new UsuarioAdminisrador(2465, "Pedro");
 		
 		admin.agregarAlarma(central, alarma);
@@ -26,7 +26,7 @@ public class TestCentralAlarma {
 	public void queSePuedaAgregarUnUsuarioConfiguradorAUnaAlarma() {
 		
 		Central central = new Central();
-		Alarma alarma = new Alarma(1,1234,4321,"Alarma-1");
+		Alarma alarma = new Alarma(1,"1234","4321","Alarma-1");
 		UsuarioAdminisrador admin = new UsuarioAdminisrador(2465, "Pedro");
 		UsuarioConfigurador usuarioConfig = new UsuarioConfigurador(7542, "Juan");
 		
@@ -34,7 +34,7 @@ public class TestCentralAlarma {
 		admin.agregarAlarma(central, alarma);
 		
 		try {
-			admin.agregarUsuarioAAlarma(central,7542, 1, 4321);
+			admin.agregarUsuarioAAlarma(central,7542, 1, "4321");
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
@@ -49,19 +49,33 @@ public class TestCentralAlarma {
 	public void alAgregarUnUsuarioAUnaAlarmaConCodigoDeConfiguracionDeAlarmaInvalidoSeLanceCodigoAlarmaIncorrectoException() throws Exception {
 		
 		Central central = new Central();
-		Alarma alarma = new Alarma(1,1234,4321,"Alarma-1");
+		Alarma alarma = new Alarma(1,"1234","4321","Alarma-1");
 		UsuarioAdminisrador admin = new UsuarioAdminisrador(2465, "Pedro");
 		UsuarioConfigurador usuarioConfig = new UsuarioConfigurador(7542, "Juan");
 		
 		admin.agregarUsuario(central, usuarioConfig);
 		admin.agregarAlarma(central, alarma);
 		
-		admin.agregarUsuarioAAlarma(central,7542, 1, 0000);
+		admin.agregarUsuarioAAlarma(central,7542, 1, "0000");
 		
 	}
 	
-	@Test
-	public void alAgregarUnSensorDuplicadoEnUnaAlarmaSeLanceUnaSensorDuplicadoException() {
+	@Test (expected=SensorDuplicadoException.class)
+	public void alAgregarUnSensorDuplicadoEnUnaAlarmaSeLanceUnaSensorDuplicadoException() throws Exception {
+		
+		Central central = new Central();
+		Alarma alarma = new Alarma(1,"1234","4321","Alarma-1");
+		UsuarioAdminisrador admin = new UsuarioAdminisrador(2465, "Pedro");
+		UsuarioConfigurador usuarioConfig = new UsuarioConfigurador(7542, "Juan");
+		Sensor sensor = new Sensor(1, false);
+		Sensor sensorDuplicado = new Sensor(1, false);
+		
+		admin.agregarUsuario(central, usuarioConfig);
+		admin.agregarAlarma(central, alarma);
+		
+		admin.agregarUsuarioAAlarma(central,7542, 1, "4321");
+		usuarioConfig.agregarSensorAAlarma(central, 1, "4321", sensor, "1234");
+		usuarioConfig.agregarSensorAAlarma(central, 1, "4321", sensorDuplicado, "1234");
 		
 	}
 	

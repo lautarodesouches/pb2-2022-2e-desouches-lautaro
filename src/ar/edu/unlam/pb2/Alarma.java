@@ -6,14 +6,14 @@ import java.util.List;
 public class Alarma {
 
 	private Integer idDeAlarma;
-	private Integer codigoDeActivacionYDesactivacion;
-	private Integer codigoConfiguracion;
+	private String codigoDeActivacionYDesactivacion;
+	private String codigoConfiguracion;
 	private String nombre;
 	private List<Usuario> listaUsuarios;
 	private List<Accion> listaAccionesRealizadas;
 	private List<Sensor> listaSensores;
 	
-	public Alarma(Integer idDeAlarma, Integer codigoDeActivacionYDesactivacion, Integer codigoConfiguracion,
+	public Alarma(Integer idDeAlarma, String codigoDeActivacionYDesactivacion, String codigoConfiguracion,
 			String nombre) {
 		super();
 		this.idDeAlarma = idDeAlarma;
@@ -31,16 +31,16 @@ public class Alarma {
 	public void setIdDeAlarma(Integer idDeAlarma) {
 		this.idDeAlarma = idDeAlarma;
 	}
-	public Integer getCodigoDeActivacionYDesactivacion() {
+	public String getCodigoDeActivacionYDesactivacion() {
 		return codigoDeActivacionYDesactivacion;
 	}
-	public void setCodigoDeActivacionYDesactivacion(Integer codigoDeActivacionYDesactivacion) {
+	public void setCodigoDeActivacionYDesactivacion(String codigoDeActivacionYDesactivacion) {
 		this.codigoDeActivacionYDesactivacion = codigoDeActivacionYDesactivacion;
 	}
-	public Integer getCodigoConfiguracion() {
+	public String getCodigoConfiguracion() {
 		return codigoConfiguracion;
 	}
-	public void setCodigoConfiguracion(Integer codigoConfiguracion) {
+	public void setCodigoConfiguracion(String codigoConfiguracion) {
 		this.codigoConfiguracion = codigoConfiguracion;
 	}
 	public String getNombre() {
@@ -74,6 +74,13 @@ public class Alarma {
 
 	public Integer obtenerCantidadUsuarios() {
 		return listaUsuarios.size();
+	}
+
+	public void agregarSensor(Sensor sensorAAgregar) throws SensorDuplicadoException {
+		for (Sensor sensor : listaSensores) {
+			if(sensor.equals(sensor)) throw new SensorDuplicadoException();
+		}
+		listaSensores.add(sensorAAgregar);
 	}
 	
 }

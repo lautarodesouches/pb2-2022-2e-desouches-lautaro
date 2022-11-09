@@ -17,7 +17,7 @@ public class UsuarioAdminisrador extends Usuario{
 		return true;
 	}
 	
-	public Boolean agregarUsuarioAAlarma(Central central, Integer dniUsuarioAAgregar, Integer idAlarma, Integer codigoConfiguracion) throws Exception {
+	public Boolean agregarUsuarioAAlarma(Central central, Integer dniUsuarioAAgregar, Integer idAlarma, String codigoConfiguracion) throws Exception {
 	
 		Usuario usuarioAAgregar = central.buscarUsuarioPorDni(dniUsuarioAAgregar);
 		Alarma alarma = central.buscarAlarmaPorId(idAlarma);
